@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">PhotoGalleryTest</string>
+    <string name="search">Search</string>
+    <string name="clear_search">Clear Search</string>
+    <string name="title_activity_item">ItemActivity</string>
+    <string name="action_settings">Settings</string>
+</resources>
