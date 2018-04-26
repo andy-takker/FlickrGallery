@@ -37,7 +37,6 @@ public class ItemPagerActivity extends AppCompatActivity {
         mViewPager.setAdapter(new FragmentStatePagerAdapter(fragmentManager) {
             @Override
             public Fragment getItem(int position) {
-                Log.i(TAG, "Перешли на объект №" + position);
                 return ItemFragment.newInstance(position);
             }
 
