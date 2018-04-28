@@ -15,6 +15,7 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class FlickrFetcher {
@@ -27,8 +28,8 @@ public class FlickrFetcher {
             .appendQueryParameter("api_key", API_KEY)
             .appendQueryParameter("format","json")
             .appendQueryParameter("nojsoncallback","1")
-            .appendQueryParameter("extras","url_s")
             .appendQueryParameter("per_page","200")
+            .appendQueryParameter("extras","url_l")
             .appendQueryParameter("page","1")
             .build();
 
@@ -58,17 +59,17 @@ public class FlickrFetcher {
         return new String(getUrlBytes(urlSpec));
     }
 
-    public GalleryItem[] fetchRecentPhotos(){
+    public List<GalleryItem> fetchRecentPhotos(){
         String url = buildUrl(FETCH_RECENTS_METHOD, null);
         return downloadGalleryItems(url);
     }
-    public GalleryItem[] searchPhotos(String query){
+    public List<GalleryItem> searchPhotos(String query){
         String url = buildUrl(SEARCH_METHOD, query);
         return downloadGalleryItems(url);
     }
 
-    private GalleryItem[] downloadGalleryItems(String url){
-        GalleryItem[] items = null;
+    private List<GalleryItem> downloadGalleryItems(String url){
+        List<GalleryItem> mItems = new ArrayList<>();
 
         try{
             JSONObject jsonBody = new JSONObject(getUrlString(url));
@@ -78,8 +79,10 @@ public class FlickrFetcher {
             Log.i(TAG, "JSON-request was successfull");
 
             Gson gson = new Gson();
-            items = gson.fromJson(photoJsonArray.toString(), GalleryItem[].class);
-
+            GalleryItem[] items = gson.fromJson(photoJsonArray.toString(), GalleryItem[].class);
+            for (GalleryItem g: items) {
+                if (g.url_l != null) mItems.add(g);
+            }
             Log.i(TAG, "Parsing was successfull");
 
         } catch (IOException ioe){
@@ -88,13 +91,14 @@ public class FlickrFetcher {
             Log.e(TAG, "Failed to parse JSON", je);
         }
 
-        return items;
+        return mItems;
     }
 
     private String buildUrl(String method, String query){
         Uri.Builder uriBuilder = ENDPOINT.buildUpon()
                 .appendQueryParameter("method", method);
         if (method.equals(SEARCH_METHOD)){
+
             uriBuilder.appendQueryParameter("text", query);
         }
         return uriBuilder.build().toString();

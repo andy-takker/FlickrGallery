@@ -119,14 +119,13 @@ public class PhotoGalleryFragment extends Fragment {
         public void bindGalleryItem(GalleryItem galleryItem){
             mGalleryItem = galleryItem;
             Picasso.get()
-                    .load(galleryItem.url_s)
+                    .load(galleryItem.url_l)
                     .placeholder(R.drawable.yandex_download)
                     .into(mItemImageView);
         }
         @Override
         public void onClick(View v){
-            Toast.makeText(getActivity(),mGalleryItem.title,Toast.LENGTH_SHORT).show();
-            Intent intent = ItemPagerActivity.newIntent(getActivity(), mGalleryItem.pos);
+            Intent intent = ItemPagerActivity.newIntent(getActivity(), mGalleryItem.pos, mItems);
             startActivity(intent);
         }
     }
@@ -155,13 +154,13 @@ public class PhotoGalleryFragment extends Fragment {
         }
     }
 
-    private class FetchItemsTask extends AsyncTask<Void, Void, GalleryItem[]>{
+    private class FetchItemsTask extends AsyncTask<Void, Void, List<GalleryItem>>{
         private String mQuery;
         public FetchItemsTask(String query){
             mQuery = query;
         }
         @Override
-        protected GalleryItem[] doInBackground(Void... params){
+        protected List<GalleryItem> doInBackground(Void... params){
             if (mQuery == null){
                 return new FlickrFetcher().fetchRecentPhotos();
             } else{
@@ -169,8 +168,8 @@ public class PhotoGalleryFragment extends Fragment {
             }
         }
         @Override
-        protected void onPostExecute(GalleryItem[] items){
-            mItems = Arrays.asList(items);
+        protected void onPostExecute(List<GalleryItem> items){
+            mItems = items;
             setupAdapter();
         }
     }

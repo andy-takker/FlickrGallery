@@ -1,8 +1,7 @@
 package incorp.death.hikki.photogallerytest;
 
 public class GalleryItem {
-    public String url_s;
-    public String url_o;
+    public String url_l;
     public String title;
     public int pos;
 

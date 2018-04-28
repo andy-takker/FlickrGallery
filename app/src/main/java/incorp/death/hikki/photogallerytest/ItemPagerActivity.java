@@ -15,10 +15,11 @@ import java.util.List;
 public class ItemPagerActivity extends AppCompatActivity {
     private static final String TAG = "ItemPagerActivity";
     public static final String EXTRA_ITEM_POS = "incorp.death.hikki.photogallerytest.pos";
-
+    private static List<GalleryItem> mGalleryItems;
     private ViewPager mViewPager;
 
-    public static Intent newIntent (Context packageContext, int pos){
+    public static Intent newIntent (Context packageContext, int pos, List<GalleryItem> items){
+        mGalleryItems = items;
         Intent intent = new Intent(packageContext, ItemPagerActivity.class);
         intent.putExtra(EXTRA_ITEM_POS, pos);
         Log.i(TAG, "Pos was sent: " + pos);
@@ -37,15 +38,16 @@ public class ItemPagerActivity extends AppCompatActivity {
         mViewPager.setAdapter(new FragmentStatePagerAdapter(fragmentManager) {
             @Override
             public Fragment getItem(int position) {
-                return ItemFragment.newInstance(position);
+                return ItemFragment.newInstance(position, mGalleryItems);
             }
 
             @Override
             public int getCount() {
-                return 200;
+                return mGalleryItems.size();
             }
         });
         mViewPager.setCurrentItem(posItem);
+
     }
 
 }
