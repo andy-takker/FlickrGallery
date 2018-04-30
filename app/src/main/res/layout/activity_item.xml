@@ -8,41 +8,54 @@
     android:layout_height="match_parent"
     android:layout_gravity="center_vertical">
 
-
-    <android.support.design.widget.AppBarLayout
-        android:id="@+id/appBarLayout"
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:textAlignment="viewStart"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:theme="@style/AppTheme.AppBarOverlay"
-        android:visibility="visible"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteX="0dp">
-
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:textAlignment="viewStart"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="#92b53f"
-            app:popupTheme="@style/AppTheme.PopupOverlay" />
-
-    </android.support.design.widget.AppBarLayout>
+        android:background="#44000000"
+        app:popupTheme="@style/AppTheme.PopupOverlay"
+        android:elevation="5dp"/>
 
     <ImageView
         android:id="@+id/imageDetail"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:adjustViewBounds="true"
-        android:background="#80484848"
+        android:background="@android:color/black"
         android:contentDescription="@string/descript"
         android:scaleType="centerInside"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/downloadButton"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="16dp"
+        android:background="@color/black_alpha"
+        android:elevation="5dp"
+        android:padding="6dp"
+        android:scaleType="fitXY"
+        app:layout_constraintBottom_toTopOf="@+id/flickrButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/dwnld" />
+
+    <ImageButton
+        android:id="@+id/flickrButton"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginBottom="16dp"
+        android:layout_marginEnd="16dp"
+        android:background="@color/black_alpha"
+        android:elevation="5dp"
+        android:scaleType="fitXY"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        app:srcCompat="@drawable/flickr_icon" />
 
 
 </android.support.constraint.ConstraintLayout>

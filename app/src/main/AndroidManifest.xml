@@ -3,7 +3,8 @@
     package="incorp.death.hikki.photogallerytest">
 
     <uses-permission android:name="android.permission.INTERNET" />
-
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -24,6 +25,10 @@
             android:label="@string/title_activity_item"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
+        <activity
+            android:name=".PhotoPageActivity"
+            android:parentActivityName=".ItemPagerActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
     </application>
 
 </manifest>

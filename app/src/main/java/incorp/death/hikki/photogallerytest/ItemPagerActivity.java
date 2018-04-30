@@ -49,5 +49,4 @@ public class ItemPagerActivity extends AppCompatActivity {
         mViewPager.setCurrentItem(posItem);
 
     }
-
 }

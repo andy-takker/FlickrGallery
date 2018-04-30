@@ -1,7 +1,10 @@
 package incorp.death.hikki.photogallerytest;
 
+import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
-import android.support.design.widget.AppBarLayout;
+import android.os.Environment;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -9,23 +12,35 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AccelerateInterpolator;
+import android.view.animation.DecelerateInterpolator;
+import android.widget.ImageButton;
 import android.widget.ImageView;
-
+import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.net.URL;
 import java.util.List;
+import java.util.Random;
 
 public class ItemFragment extends Fragment {
     private static final String TAG = "ItemFragment";
     public static final String ARG_ITEM_ID = "item_id";
     private static final String DEFAULT_URL = "https://cdnb.artstation.com/p/assets/images/images/005/740/075/large/adrian-art-ryuk-1.jpg";
+
+    private Toolbar mToolbar;
     private ImageView mImageView;
+    private ImageButton mFlickr;
+    private ImageButton mDownload;
+
     private int mItemId;
     private static List<GalleryItem> sGalleryItems;
+    private boolean isShownToolbar = true;
     private String mUrl;
-    private Toolbar mToolbar;
-    private AppBarLayout mAppBarLayout;
 
     public static ItemFragment newInstance(int itemId, List<GalleryItem> items){
         sGalleryItems = items;
@@ -40,23 +55,22 @@ public class ItemFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mItemId =(int) getArguments().getSerializable(ARG_ITEM_ID);
-
+        setHasOptionsMenu(true);
     }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.activity_item, container,false);
 
-        mAppBarLayout = (AppBarLayout) v.findViewById(R.id.appBarLayout);
-
         mToolbar = (Toolbar) v.findViewById(R.id.toolbar);
         mToolbar.setSubtitle(mItemId+1 + " of " + sGalleryItems.size());
-
 
         int endInd = sGalleryItems.get(mItemId).title.length() < 25 ? sGalleryItems.get(mItemId).title.length() : 24 ;
         String tmpTitle = sGalleryItems.get(mItemId).title.substring(0,endInd);
         tmpTitle = tmpTitle.length() == 0 || tmpTitle == " " ? "Untitled image" : tmpTitle;
         mToolbar.setTitle(tmpTitle);
-        mToolbar.setNavigationIcon(R.drawable.arrow_left);
+        mToolbar.setSubtitleTextColor(Color.WHITE);
+        mToolbar.setTitleTextColor(Color.WHITE);
+        mToolbar.setNavigationIcon(R.drawable.arrow_up);
         mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -64,14 +78,35 @@ public class ItemFragment extends Fragment {
             }
         });
 
+        mFlickr = (ImageButton) v.findViewById(R.id.flickrButton);
+        mFlickr.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = PhotoPageActivity.newIntent(getActivity(), sGalleryItems.get(mItemId).getPhotoPageUri());
+                startActivity(i);
+            }
+        });
+        mDownload = (ImageButton) v.findViewById(R.id.downloadButton);
+        mDownload.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
         mImageView = (ImageView) v.findViewById(R.id.imageDetail);
         mImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (mAppBarLayout.getVisibility() == View.INVISIBLE){
-                    mAppBarLayout.setVisibility(View.VISIBLE);
+                if(isShownToolbar) {
+                    mToolbar.animate().translationY(-mToolbar.getBottom()).setInterpolator(new AccelerateInterpolator(2)).start();
+                    mFlickr.animate().translationY(mFlickr.getBottom()).setInterpolator(new AccelerateInterpolator(2)).start();
+                    mDownload.animate().translationY(mFlickr.getBottom()).setInterpolator(new AccelerateInterpolator(2)).start();
+                    isShownToolbar = false;
                 } else{
-                    mAppBarLayout.setVisibility(View.INVISIBLE);
+                    mToolbar.animate().translationY(0).setInterpolator(new DecelerateInterpolator()).start();
+                    mFlickr.animate().translationY(0).setInterpolator(new DecelerateInterpolator()).start();
+                    mDownload.animate().translationY(0).setInterpolator(new DecelerateInterpolator()).start();
+                    isShownToolbar = true;
                 }
             }
         });
@@ -82,4 +117,5 @@ public class ItemFragment extends Fragment {
                 .into(mImageView);
         return v;
     }
+
 }
