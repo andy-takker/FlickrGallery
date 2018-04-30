@@ -37,13 +37,12 @@
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="16dp"
         android:background="@color/black_alpha"
+        android:contentDescription="@string/action_download"
         android:elevation="5dp"
-        android:padding="6dp"
         android:scaleType="fitXY"
         app:layout_constraintBottom_toTopOf="@+id/flickrButton"
         app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@drawable/dwnld"
-        android:contentDescription="@string/action_download"/>
+        app:srcCompat="@drawable/ic_download_button" />
 
     <ImageButton
         android:id="@+id/flickrButton"

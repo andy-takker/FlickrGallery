@@ -49,12 +49,6 @@ public class PhotoPageFragment extends Fragment {
                 getActivity().finish();
             }
         });
-        mToolbar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mToolbar.animate().translationY(-mToolbar.getBottom()).setInterpolator(new AccelerateInterpolator(2)).start();
-            }
-        });
 
         mProgressBar = (ProgressBar)v.findViewById(R.id.progress_bar);
         mProgressBar.setMax(100);
