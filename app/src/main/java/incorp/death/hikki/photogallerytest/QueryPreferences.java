@@ -3,8 +3,6 @@ package incorp.death.hikki.photogallerytest;
 import android.content.Context;
 import android.preference.PreferenceManager;
 
-import java.util.List;
-
 public class QueryPreferences {
     private static final String PREF_SEARCH_QUERY = "searchQuery";
 

@@ -15,7 +15,6 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class FlickrFetcher {
@@ -43,7 +42,7 @@ public class FlickrFetcher {
             if (connection.getResponseCode() != HttpURLConnection.HTTP_OK){
                 throw new IOException(connection.getResponseMessage()+": with "+urlSpec);
             }
-            int bytesRead = 0;
+            int bytesRead;
             byte[] buffer = new byte[1024];
             while ((bytesRead = in.read(buffer)) > 0){
                 out.write(buffer,0, bytesRead);

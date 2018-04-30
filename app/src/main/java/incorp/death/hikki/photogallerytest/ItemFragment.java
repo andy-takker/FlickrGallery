@@ -3,11 +3,8 @@ package incorp.death.hikki.photogallerytest;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.os.Environment;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,17 +12,10 @@ import android.view.animation.AccelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.net.URL;
 import java.util.List;
-import java.util.Random;
 
 public class ItemFragment extends Fragment {
     private static final String TAG = "ItemFragment";
@@ -66,11 +56,11 @@ public class ItemFragment extends Fragment {
 
         int endInd = sGalleryItems.get(mItemId).title.length() < 25 ? sGalleryItems.get(mItemId).title.length() : 24 ;
         String tmpTitle = sGalleryItems.get(mItemId).title.substring(0,endInd);
-        tmpTitle = tmpTitle.length() == 0 || tmpTitle == " " ? "Untitled image" : tmpTitle;
+        tmpTitle = tmpTitle.length() == 0 || tmpTitle.equals(new String(" ")) ? "Untitled image" : tmpTitle;
         mToolbar.setTitle(tmpTitle);
         mToolbar.setSubtitleTextColor(Color.WHITE);
         mToolbar.setTitleTextColor(Color.WHITE);
-        mToolbar.setNavigationIcon(R.drawable.arrow_up);
+        mToolbar.setNavigationIcon(R.drawable.ic_up_button);
         mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

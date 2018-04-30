@@ -4,9 +4,8 @@
     <string name="clear_search">Clear Search</string>
     <string name="title_activity_item">ItemActivity</string>
     <string name="action_settings">Settings</string>
-    <string name="descript">It is detail Gallery Image</string>
+    <string name="descript">It is Gallery Image</string>
     <string name="toolbar_title">Image</string>
-    <string name="action_favorite">Add to fav</string>
     <string name="action_download">Download image</string>
     <string name="action_url">Open page with photo</string>
 </resources>

@@ -4,11 +4,11 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AccelerateInterpolator;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -42,11 +42,17 @@ public class PhotoPageFragment extends Fragment {
         mToolbar.setTitle(R.string.app_name);
         mToolbar.setSubtitleTextColor(Color.WHITE);
         mToolbar.setTitleTextColor(Color.WHITE);
-        mToolbar.setNavigationIcon(R.drawable.arrow_up);
+        mToolbar.setNavigationIcon(R.drawable.ic_up_button);
         mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 getActivity().finish();
+            }
+        });
+        mToolbar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mToolbar.animate().translationY(-mToolbar.getBottom()).setInterpolator(new AccelerateInterpolator(2)).start();
             }
         });
 
