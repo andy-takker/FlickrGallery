@@ -96,12 +96,13 @@ public class PhotoGalleryFragment extends Fragment {
 
     private void updateItems(){
         String query = QueryPreferences.getStoredQuery(getActivity());
-
         new FetchItemsTask(query).execute();
     }
     private void setupAdapter(){
         if (isAdded()){
             mPhotoRecyclerView.setAdapter(new PhotoAdapter(mItems));
+            Galleries galleries = Galleries.get(getActivity());
+            galleries.resetGalellery(mItems);
         }
     }
     private class PhotoHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
