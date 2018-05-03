@@ -17,7 +17,7 @@
         app:popupTheme="@style/AppTheme.PopupOverlay"
         android:elevation="5dp"/>
 
-    <ImageView
+    <incorp.death.hikki.flickrgallery.TouchImageView
         android:id="@+id/imageDetail"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

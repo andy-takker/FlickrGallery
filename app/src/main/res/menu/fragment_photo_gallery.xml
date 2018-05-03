@@ -11,5 +11,8 @@
         android:id="@+id/menu_item_clear"
         android:title="@string/clear_search"
         app:showAsAction="never"/>
-
+    <item
+        android:id="@+id/menu_about_developer"
+        android:title="@string/developer"
+        app:showAsAction="never"/>
 </menu>
